@@ -44,9 +44,9 @@ public Plugin myinfo =
 {
     name = "Nav Mesh",
     author = "Natanel 'LuqS', Omer 'KoNLiG'",
-    description = "API for CS:GO AI Nav Mesh.",
+    description = "Exposes the base functionality of CS:GO navigation mesh.",
     version = "1.0.0",
-    url = "https://github.com/Natanel-Shitrit/Retakes"
+    url = "https://github.com/KoNLiG/NavMesh"
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
