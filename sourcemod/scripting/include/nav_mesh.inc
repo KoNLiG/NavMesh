@@ -84,9 +84,17 @@ methodmap NavArea < NavAreaCriticalData
     // @error 		 Null NavArea instance.
     public native void GetRandomPoint(float pos[3]);
 
+    // Retrieves the navigation area unique id.
+    //
+    // @error 		 Null NavArea instance.
+    property int ID
+    {
+        public native get();
+    }
+
     // Retrieves the navigation area place index.
     //
-    // Note: A single navigation area only has only one place index,
+    // Note: A single navigation area has only one place index,
     // 		 while a place index can have many navigation area(s).
     //
     // Note: A valid place index is [1 <= X <= TheNavMesh.GetPlaceCount]
@@ -197,13 +205,14 @@ public void __pl_nav_mesh_SetNTVOptional()
     MarkNativeAsOptional("NavAreaCriticalData.neZ.get");
     MarkNativeAsOptional("NavAreaCriticalData.swZ.get");
     MarkNativeAsOptional("NavArea.GetRandomPoint");
+    MarkNativeAsOptional("NavArea.ID.get");
     MarkNativeAsOptional("NavArea.GetPlace");
     MarkNativeAsOptional("NavArea.IsConnected");
     MarkNativeAsOptional("NavArea.GetAdjacentCount");
     MarkNativeAsOptional("NavArea.GetAdjacentArea");
     MarkNativeAsOptional("TheNavMesh.PlaceToName");
     MarkNativeAsOptional("TheNavMesh.GetNearestNavArea");
-    MarkNativeAsOptional("TheNavMesh.PlaceCount.get");
+    MarkNativeAsOptional("TheNavMesh.GetPlaceCount");
     MarkNativeAsOptional("TheNavAreas.TheNavAreas");
 }
 #endif

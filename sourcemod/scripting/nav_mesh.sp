@@ -16,6 +16,7 @@ enum
 int m_placeCountOffset,
     m_nwCornerOffset,
     m_seCornerOffset,
+    m_idOffset,
     m_placeOffset,
     m_neZOffset,
     m_swZOffset,
@@ -131,6 +132,9 @@ void CreateNatives()
     // void GetRandomPoint(float pos[3])
     CreateNative("NavArea.GetRandomPoint", Native_GetRandomPoint);
 
+    // property int ID
+    CreateNative("NavArea.ID.get", Native_GetID);
+
     // int GetPlace()
     CreateNative("NavArea.GetPlace", Native_GetPlace);
 
@@ -240,6 +244,20 @@ any Native_GetRandomPoint(Handle plugin, int numParams)
     SetNativeArray(2, position, sizeof(position));
 
     return 0;
+}
+
+any Native_GetID(Handle plugin, int numParams)
+{
+    NavArea nav_area = view_as<NavArea>(GetNativeCell(1));
+    if (!nav_area)
+    {
+        ThrowNativeError(SP_ERROR_NATIVE, "Invalid NavArea pointer.");
+    }
+
+    return LoadFromAddress(
+        view_as<Address>(nav_area) + view_as<Address>(m_idOffset),
+        NumberType_Int32
+    );
 }
 
 any Native_GetPlace(Handle plugin, int numParams)
@@ -449,6 +467,7 @@ void InitializeSDKOffsets()
     m_neZOffset = LoadGameDataOffset("CNavAreaCriticalData::m_neZ");
     m_swZOffset = LoadGameDataOffset("CNavAreaCriticalData::m_swZ");
     m_connectOffset = LoadGameDataOffset("CNavAreaCriticalData::m_connect");
+    m_idOffset = LoadGameDataOffset("CNavArea::m_id");
     m_placeOffset = LoadGameDataOffset("CNavArea::m_place");
     m_placeCountOffset = LoadGameDataOffset("CNavMesh::m_placeCount");
 }

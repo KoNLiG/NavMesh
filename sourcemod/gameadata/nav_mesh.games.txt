@@ -47,6 +47,13 @@
                 "windows"   "1088"
             }
 
+            // m_place - 4 bytes
+            "CNavArea::m_id"
+            {
+                "linux"     "132"
+                "windows"   "132"
+            }
+
             // STR: "Area #%d %s %s\n"
             // In the if above the string "Bot.EditSwitchOn".
             // if ( *(v48 + {{THIS}}) != v49 )
