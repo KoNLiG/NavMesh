@@ -29,7 +29,8 @@ Handle
     NavArea_GetRandomPointFunc,
     NavArea_IsConnectedFunc,
     NavMesh_PlaceToNameFunc,
-    NavMesh_GetNearestNavAreaFunc;
+    NavMesh_GetNearestNavAreaFunc,
+    NavMesh_GetNavAreaByIDFunc;
 
 // Forward Declarations
 GlobalForward
@@ -152,6 +153,9 @@ void CreateNatives()
 
     // NavArea GetNearestNavArea(const float pos[3], bool anyZ = false, float maxDist = 10000.0, bool checkLOS = false, bool checkGround = true)
     CreateNative("TheNavMesh.GetNearestNavArea", Native_GetNearestNavArea);
+
+    // NavArea GetNavAreaByID(int id)
+    CreateNative("TheNavMesh.GetNavAreaByID", Native_GetNavAreaByID);
 
     // int GetPlaceCount()
     CreateNative("TheNavMesh.GetPlaceCount", Native_GetPlaceCount);
@@ -391,6 +395,13 @@ any Native_GetNearestNavArea(Handle plugin, int numParams)
     return view_as<NavArea>(SDKCall(NavMesh_GetNearestNavAreaFunc, g_TheNavMesh, pos, anyZ, maxDist, checkLOS, checkGround));
 }
 
+any Native_GetNavAreaByID(Handle plugin, int numParams)
+{
+    int id = GetNativeCell(1);
+
+    return view_as<NavArea>(SDKCall(NavMesh_GetNavAreaByIDFunc, g_TheNavMesh, id));
+}
+
 any Native_GetPlaceCount(Handle plugin, int numParams)
 {
     return LoadFromAddress(
@@ -530,6 +541,19 @@ void InitializeSDKFunctions()
     if (!(NavMesh_GetNearestNavAreaFunc = EndPrepSDKCall()))
     {
         SetFailState("Missing signature 'CNavMesh::GetNearestNavArea'");
+    }
+
+    // Setup `GetNavAreaByID` SDKCall.
+    // CNavArea *CNavMesh::GetNavAreaByID( unsigned int id ) const
+    StartPrepSDKCall(SDKCall_Raw);
+    PrepSDKCall_SetFromConf(g_GameData, SDKConf_Signature, "CNavMesh::GetNavAreaByID");
+
+    PrepSDKCall_AddParameter(SDKType_PlainOldData, SDKPass_Plain); // unsigned int id
+    PrepSDKCall_SetReturnInfo(SDKType_PlainOldData, SDKPass_Plain); // CNavArea*
+
+    if (!(NavMesh_GetNavAreaByIDFunc = EndPrepSDKCall()))
+    {
+        SetFailState("Missing signature 'CNavMesh::GetNavAreaByID'");
     }
 }
 

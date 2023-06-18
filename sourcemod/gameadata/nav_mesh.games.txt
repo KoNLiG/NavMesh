@@ -112,6 +112,15 @@
                 "linux"     "\x55\x89\xE5\x57\x56\x53\x81\xEC\xFC\x01\x00\x00\x8B\x7D\x18"
             }
 
+            // str: "Invalid area in visible set for area #%d\n"
+            // First function call above the if statement.
+            "CNavMesh::GetNavAreaByID"
+            {
+                "library"   "server"
+                "windows"   ""
+                "linux"     "\x55\x89\xE5\x57\x56\x31\xF6\x53\x83\xEC\x2C\xC7\x45\xC8\x00\x00\x00\x00"
+            }
+
             // str: "Computed lighting for %d/%d areas\n"
             "nav_update_lighting"
             {

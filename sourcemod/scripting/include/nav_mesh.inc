@@ -153,6 +153,13 @@ methodmap TheNavMesh
     // @return 		 		NavArea instance, or NULL_NAV_AREA on failure.
     public static native NavArea GetNearestNavArea(const float pos[3], bool anyZ = false, float maxDist = 10000.0, bool checkLOS = false, bool checkGround = true);
 
+    // Retrieves a NavArea instance based on the given unique ID.
+    //
+    // @param id			Unique ID of a certain navigation area. Nonnegative starting from 1.
+    //
+    // @return 		 		NavArea instance, or NULL_NAV_AREA on failure.
+    public static native NavArea GetNavAreaByID(int id);
+
     // Retrieves the amount of existing places.
     //
     // @return 		 		Self explanatory.
@@ -212,6 +219,7 @@ public void __pl_nav_mesh_SetNTVOptional()
     MarkNativeAsOptional("NavArea.GetAdjacentArea");
     MarkNativeAsOptional("TheNavMesh.PlaceToName");
     MarkNativeAsOptional("TheNavMesh.GetNearestNavArea");
+    MarkNativeAsOptional("TheNavMesh.GetNavAreaByID");
     MarkNativeAsOptional("TheNavMesh.GetPlaceCount");
     MarkNativeAsOptional("TheNavAreas.TheNavAreas");
 }
